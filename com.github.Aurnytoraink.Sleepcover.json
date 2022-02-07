@@ -1,0 +1,85 @@
+{
+    "app-id" : "com.github.Aurnytoraink.Sleepcover",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "master",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "sleepcover",
+    "tags" : [
+        "devel",
+        "development",
+        "nightly"
+    ],
+    "desktop-file-name-prefix" : "(Development) ",
+    "finish-args" : [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--device=dri",
+        "--socket=wayland",
+        "--socket=session-bus"
+    ],
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/man",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
+	{
+            "name": "libsass",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/lazka/libsass.git",
+                    "branch": "meson"
+                }
+            ]
+        },
+        {
+            "name": "sassc",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/lazka/sassc.git",
+                    "branch": "meson"
+                }
+            ]
+        },
+        {
+            "name": "libadwaita",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dexamples=false",
+                "-Dtests=false"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libadwaita.git",
+                    "branch": "1.0.1"
+                }
+            ]
+        },
+        {
+            "name" : "sleepcover",
+            "builddir" : true,
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "file:///home/aurnytoraink/Projets/Applications/Sleepcover"
+                }
+            ],
+            "config-opts" : [
+                "-Dprofile=development"
+            ]
+        }
+    ]
+}

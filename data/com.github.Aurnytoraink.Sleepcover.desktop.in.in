@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Sleepcover
+Exec=sleepcover
+Icon=@application_id@
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true

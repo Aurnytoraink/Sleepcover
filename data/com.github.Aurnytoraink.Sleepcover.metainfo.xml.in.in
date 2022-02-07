@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>@APP_ID@</id>
+	<metadata_license>CC0-1.0</metadata_license>
+	<project_license>GPL-3.0-or-later</project_license>
+  <name>Sleepcover</name>
+  <summary>Record sound during your sleeps</summary>
+  <description>
+  </description>
+  <url type="homepage">https://github.com/Aurnytoraink/Sleepcover</url>
+  <url type="bugtracker">https://github.com/Aurnytoraink/Sleepcover/issues</url>
+  <developer_name>Mathieu Heurtevin</developer_name>
+  <update_contact>mathieu.heurtevinruiz@protonmail.com</update_contact>
+  <content_rating type="oars-1.0" />
+  <launchable type="desktop-id">@APP_ID@.desktop</launchable>
+  <translation type="gettext">sleepover</translation>
+  <screenshots>
+    <screenshot type="default">
+      <image></image>
+    </screenshot>
+  </screenshots>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+    <control>tablet</control>
+  </recommends>
+  <categories>
+    <category></category>
+</categories>
+</component>
+

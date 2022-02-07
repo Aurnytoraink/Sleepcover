@@ -1,0 +1,7 @@
+data/com.github.Aurnytoraink.Sleepcover.desktop.in
+data/com.github.Aurnytoraink.Sleepcover.appdata.xml.in
+data/com.github.Aurnytoraink.Sleepcover.gschema.xml
+src/window.ui
+src/main.py
+src/window.py
+
