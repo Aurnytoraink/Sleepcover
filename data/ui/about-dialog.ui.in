@@ -10,7 +10,8 @@
     <property name="website-label">Github</property>
     <property name="version">@version@</property>
     <property name="wrap-license">True</property>
-    <property name="copyright">Copyright 2021 Mathieu Heurtevin</property>
+    <property name="copyright">Copyright 2022 Mathieu Heurtevin</property>
+    <property name="license_type">gpl-3-0</property>
   </template>
 </interface>
 
