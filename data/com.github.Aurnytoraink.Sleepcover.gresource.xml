@@ -3,5 +3,8 @@
   <gresource prefix="/com/github/Aurnytoraink/Sleepcover">
     <file>ui/window.ui</file>
     <file>ui/help-overlay.ui</file>
+    <file>ui/about-dialog.ui</file>
+    <file preprocess="xml-stripblanks">icons/bed-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/sound-wave-symbolic.svg</file>
   </gresource>
 </gresources>

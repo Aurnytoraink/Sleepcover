@@ -2,8 +2,10 @@ gnome.compile_resources(
   BASE_ID,
   BASE_ID + '.gresource.xml',
   gresource_bundle: true,
+  source_dir: meson.current_build_dir(),
   install: true,
   install_dir: pkgdatadir,
+  dependencies: about_dialog,
 )
 
 desktop_conf = configuration_data()

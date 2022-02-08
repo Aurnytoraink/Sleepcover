@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="AboutDialog" parent="GtkAboutDialog">
+    <property name="modal">True</property>
+    <property name="authors">Mathieu Heurtevin</property>
+    <property name="program_name">SleepCover</property>
+    <property name="comments" translatable="True">Record sound during your sleeps</property>
+    <property name="logo-icon-name">@app_id@</property>
+    <property name="website">https://github.com/Aurnytoraink/Sleepcover</property>
+    <property name="website-label">Github</property>
+    <property name="version">@version@</property>
+    <property name="wrap-license">True</property>
+    <property name="copyright">Copyright 2021 Mathieu Heurtevin</property>
+  </template>
+</interface>
+

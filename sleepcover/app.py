@@ -19,6 +19,7 @@ from gettext import gettext as _
 from gi.repository import Gtk, Gio, Adw, GObject, GLib
 
 from sleepcover.ui.window import SleepcoverWindow
+from sleepcover.ui.aboutdialog import AboutDialog
 
 
 class Application(Adw.Application):
@@ -39,33 +40,24 @@ class Application(Adw.Application):
 
 
     def do_activate(self):
-        win = self.props.active_window
-        if not win:
-            win = SleepcoverWindow(application=self)
+        self.win = self.props.active_window
+        if not self.win:
+            self.win = SleepcoverWindow(application=self)
             if self.props.application_id.endswith('Devel'):
-                win.get_style_context().add_class('devel')
+                self.win.get_style_context().add_class('devel')
         self.create_action('about', self.on_about_action)
         self.create_action('preferences', self.on_preferences_action)
-        win.present()
+        self.win.present()
 
-    def on_about_action(self, widget, *param):
-        about = Gtk.AboutDialog()
-        about.set_transient_for(self.props.active_window)
-        about.set_modal(True)
-        about.set_version(self.version)
-        about.set_program_name("SleepCover")
-        about.set_logo_icon_name(self.props.application_id)
-        about.set_authors(["Mathieu Heurtevin"])
-        about.set_comments(_("Record sound during your sleeps"))
-        about.set_wrap_license(True)
-        about.set_license_type(Gtk.License.GPL_3_0)
-        about.set_copyright(_("Copyright 2021 Mathieu Heurtevin"))
-        about.set_website_label(_("GitHub"))
-        about.set_website("https://github.com/Aurnytoraink/Sleepcover")
-        about.present()
+    def do_startup(self):
+        Adw.Application.do_startup(self)
 
     def on_preferences_action(self, widget, *param):
         print('app.preferences action activated')
+
+    def on_about_action(self, widget, *param):
+        about = AboutDialog(self.win, self.version, self.get_application_id())
+        about.present()
 
     def create_action(self, name, callback):
         """ Add an Action and connect to a callback """

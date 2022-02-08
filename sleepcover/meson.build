@@ -3,6 +3,7 @@ main = [
 ]
 ui = [
   'ui/window.py',
+  'ui/aboutdialog.py',
 ]
 
 install_data(main, install_dir: sleepcoverdir)

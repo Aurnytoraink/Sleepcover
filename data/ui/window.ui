@@ -1,31 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <requires lib="adw" version="1.0"/>
   <template class="SleepcoverWindow" parent="AdwApplicationWindow">
-    <property name="default-width">600</property>
-    <property name="default-height">300</property>
-    <child type="titlebar">
-      <object class="GtkHeaderBar" id="header_bar">
-        <child type="end">
-          <object class="GtkMenuButton">
-            <property name="icon-name">open-menu-symbolic</property>
-            <property name="menu-model">primary_menu</property>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="AdwHeaderBar">
+            <child>
+              <object class="GtkButton" id="btn-start-recording">
+                <property name="child">
+                  <object class="AdwButtonContent">
+                    <property name="icon-name">media-record-symbolic</property>
+                    <property name="label" translatable="yes">_Record</property>
+                    <property name="use-underline">True</property>
+                  </object>
+                </property>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkMenuButton">
+                <property name="icon-name">open-menu-symbolic</property>
+                <property name="menu-model">primary_menu</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwStatusPage">
+            <property name="title" translatable="true">Record your first sleep</property>
+            <property name="description" translatable="true">Press on the record button to start</property>
+            <property name="icon-name">com.github.Aurnytoraink.Sleepcover-symbolic</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
           </object>
         </child>
       </object>
     </child>
-    <child>
-      <object class="GtkLabel" id="label">
-        <property name="label">Hello, World!</property>
-        <attributes>
-          <attribute name="weight" value="bold"/>
-          <attribute name="scale" value="2"/>
-        </attributes>
-      </object>
-    </child>
   </template>
-
   <menu id="primary_menu">
     <section>
       <item>
@@ -43,3 +57,4 @@
     </section>
   </menu>
 </interface>
+

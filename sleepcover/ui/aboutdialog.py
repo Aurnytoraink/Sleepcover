@@ -1,4 +1,4 @@
-# window.py
+# aboutdialog.py
 #
 # Copyright 2022 Aurnytoraink
 #
@@ -18,10 +18,11 @@
 from gi.repository import Gtk, Adw
 
 
-@Gtk.Template(resource_path='/com/github/Aurnytoraink/Sleepcover/ui/window.ui')
-class SleepcoverWindow(Adw.ApplicationWindow):
-    __gtype_name__ = 'SleepcoverWindow'
+@Gtk.Template(resource_path='/com/github/Aurnytoraink/Sleepcover/ui/about-dialog.ui')
+class AboutDialog(Gtk.AboutDialog):
+    __gtype_name__ = 'AboutDialog'
 
 
-    def __init__(self, **kwargs):
+    def __init__(self, parent, version, iconname, **kwargs):
         super().__init__(**kwargs)
+        self.set_transient_for(parent)

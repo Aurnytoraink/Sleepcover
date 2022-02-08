@@ -39,6 +39,8 @@ sleepcoverdir = pythondir / 'sleepcover'
 iconsdir = datadir / 'icons'
 schemasdir = datadir / 'glib-2.0' / 'schemas'
 
+subdir('data/ui')
+
 bin_config = configuration_data()
 bin_config.set('localedir', localedir)
 bin_config.set('pkgdatadir', pkgdatadir)
@@ -55,7 +57,9 @@ configure_file(
   install_dir: bindir
 )
 
+
 subdir('data')
+# subdir('data/ui')
 subdir('sleepcover')
 subdir('po')
 
