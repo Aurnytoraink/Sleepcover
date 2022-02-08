@@ -15,26 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Adw
 
 
 @Gtk.Template(resource_path='/com/github/Aurnytoraink/Sleepcover/ui/window.ui')
-class SleepcoverWindow(Gtk.ApplicationWindow):
+class SleepcoverWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'SleepcoverWindow'
 
     label = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-
-class AboutDialog(Gtk.AboutDialog):
-
-    def __init__(self, parent):
-        Gtk.AboutDialog.__init__(self)
-        self.props.program_name = 'sleepcover'
-        self.props.version = "0.1.0"
-        self.props.authors = ['Aurnytoraink']
-        self.props.copyright = '(C) 2021 Aurnytoraink'
-        self.props.logo_icon_name = 'com.github.Aurnytoraink.Sleepcover'
-        self.set_transient_for(parent)

@@ -3,20 +3,14 @@
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
-    "command" : "sleepcover",
-    "tags" : [
-        "devel",
-        "development",
-        "nightly"
-    ],
+    "command" : "sleep-cover",
     "desktop-file-name-prefix" : "(Development) ",
     "finish-args" : [
-        "--share=network",
         "--share=ipc",
         "--socket=fallback-x11",
         "--device=dri",
         "--socket=wayland",
-        "--socket=session-bus"
+        "--socket=pulseaudio"
     ],
     "cleanup" : [
         "/include",
@@ -32,6 +26,7 @@
     "modules" : [
 	{
             "name": "libsass",
+            "cleanup": ["*"],
             "buildsystem": "meson",
             "sources": [
                 {
@@ -43,6 +38,7 @@
         },
         {
             "name": "sassc",
+            "cleanup": ["*"],
             "buildsystem": "meson",
             "sources": [
                 {
@@ -57,7 +53,9 @@
             "buildsystem": "meson",
             "config-opts": [
                 "-Dexamples=false",
-                "-Dtests=false"
+                "-Dgtk_doc=false",
+                "-Dtests=false",
+                "-Dvapi=false"
             ],
             "sources": [
                 {
@@ -73,12 +71,12 @@
             "buildsystem" : "meson",
             "sources" : [
                 {
-                    "type" : "git",
-                    "url" : "file:///home/aurnytoraink/Projets/Applications/Sleepcover"
+                    "type" : "dir",
+                    "url" : "."
                 }
             ],
             "config-opts" : [
-                "-Dprofile=development"
+                "-Ddevel=true"
             ]
         }
     ]

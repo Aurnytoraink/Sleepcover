@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+
+# sleepcover.py.in
+#
+# Copyright 2022 Aurnytoraink
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import os
+import sys
+import signal
+import gettext
+import gi
+import locale
+
+gi.require_version('Gtk', '4.0')
+gi.require_version('Adw', '1')
+
+APP_ID = '@app_id@'
+BASE_ID = '@base_id@'
+VERSION = '@version@'
+pkgdatadir = '@pkgdatadir@'
+LOCALE_DIR = "@localedir@"
+PKGDATA_DIR = "@pkgdatadir@"
+PYTHON_DIR = "@pythondir@"
+
+
+sys.path.insert(1, PYTHON_DIR)
+
+def setup_i18n() -> None:
+    try:
+        locale.bindtextdomain(APP_ID, LOCALE_DIR)  # type: ignore
+        locale.textdomain(APP_ID)  # type: ignore
+    except AttributeError as e:
+        logging.warning(
+            f"Unable to set the gettext translation domain.\nError:\n{e}")
+    gettext.bindtextdomain(APP_ID, LOCALE_DIR)
+    gettext.textdomain(APP_ID)
+
+
+def setup_resources() -> None:
+    from gi.repository import Gio
+    resource = Gio.Resource.load(
+        os.path.join(PKGDATA_DIR, f"{BASE_ID}.gresource"))
+    Gio.Resource._register(resource)
+
+
+def run_app() -> int:
+    from sleepcover.app import Application
+    app = Application(application_id=APP_ID, version=VERSION)
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+    exit_status = app.run(sys.argv)
+    return exit_status
+
+
+if __name__ == "__main__":
+    setup_i18n()
+    setup_resources()
+
+    exit_status = run_app()
+    sys.exit(exit_status)
+

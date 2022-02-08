@@ -15,19 +15,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
-import gi
+from gettext import gettext as _
+from gi.repository import Gtk, Gio, Adw, GObject, GLib
 
-from gi.repository import Gtk, Gio, Adw
-
-from .window import SleepcoverWindow, AboutDialog
+from sleepcover.ui.window import SleepcoverWindow
 
 
 class Application(Adw.Application):
-    def __init__(self,version,application_id):
+
+    settings = GObject.Property(type=Gio.Settings)
+    version = GObject.Property(type=str)
+
+    def __init__(self,application_id,version):
         super().__init__(application_id=application_id,
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
-        self_version = version
+
+        self.name = _("SleepCover")
+        self.version = version
+        self.settings = Gio.Settings.new(self.get_application_id())
+        GLib.set_application_name(self.name)
+        GLib.set_prgname("sleepcover")
+        Gtk.Window.set_default_icon_name(self.get_application_id())
+
 
     def do_activate(self):
         win = self.props.active_window
@@ -39,11 +48,23 @@ class Application(Adw.Application):
         self.create_action('preferences', self.on_preferences_action)
         win.present()
 
-    def on_about_action(self, widget, _):
-        about = AboutDialog(self.props.active_window)
+    def on_about_action(self, widget, *param):
+        about = Gtk.AboutDialog()
+        about.set_transient_for(self.props.active_window)
+        about.set_modal(True)
+        about.set_version(self.version)
+        about.set_program_name("SleepCover")
+        about.set_logo_icon_name(self.props.application_id)
+        about.set_authors(["Mathieu Heurtevin"])
+        about.set_comments(_("Record sound during your sleeps"))
+        about.set_wrap_license(True)
+        about.set_license_type(Gtk.License.GPL_3_0)
+        about.set_copyright(_("Copyright 2021 Mathieu Heurtevin"))
+        about.set_website_label(_("GitHub"))
+        about.set_website("https://github.com/Aurnytoraink/Sleepcover")
         about.present()
 
-    def on_preferences_action(self, widget, _):
+    def on_preferences_action(self, widget, *param):
         print('app.preferences action activated')
 
     def create_action(self, name, callback):

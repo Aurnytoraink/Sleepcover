@@ -1,3 +1,3 @@
-# Sleepcover
+# SleepCover
 
-Record sound during your sleeps
+Record yourself while sleeping

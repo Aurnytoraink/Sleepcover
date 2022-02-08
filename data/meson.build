@@ -1,51 +1,52 @@
-subdir('icons')
-
-gnome = import('gnome')
-
-gnome.compile_resources('sleepcover',
-  'sleepcover.gresource.xml',
+gnome.compile_resources(
+  BASE_ID,
+  BASE_ID + '.gresource.xml',
   gresource_bundle: true,
   install: true,
   install_dir: pkgdatadir,
 )
 
 desktop_conf = configuration_data()
-desktop_conf.set('application_id', application_id)
+desktop_conf.set('application_id', APP_ID)
 
-desktop_file = i18n.merge_file (
+# Merging the translations with the desktop file
+desktop_conf = configuration_data()
+desktop_conf.set('icon', APP_ID)
+i18n.merge_file(
   type: 'desktop',
   input: configure_file(
-    input: 'com.github.Aurnytoraink.Sleepcover.desktop.in.in',
-    output: '@BASENAME@',
-    configuration: desktop_conf
-  ),
-  output: '@0@.desktop'.format(application_id),
-  type: 'desktop',
-  po_dir: '../po',
+    output: BASE_ID + '.desktop.in',
+    input: BASE_ID + '.desktop.in.in',
+    configuration: desktop_conf),
+  output: APP_ID + '.desktop',
+  po_dir: meson.project_source_root() / 'po',
   install: true,
-  install_dir: join_paths(get_option('datadir'), 'applications')
+  install_dir: applicationsdir
 )
 
-
-desktop_utils = find_program('desktop-file-validate', required: false)
-if desktop_utils.found()
-  test('Validate desktop file', desktop_utils,
-    args: [desktop_file]
+# Validating the desktop file
+desktop_file_validate = find_program('desktop-file-validate', required:false)
+if desktop_file_validate.found()
+  test (
+    'Validate desktop file',
+    desktop_file_validate,
+    args: join_paths(meson.current_build_dir (), APP_ID + '.desktop')
   )
 endif
 
+
 appstream_conf = configuration_data()
-appstream_conf.set('APP_ID', application_id)
+appstream_conf.set('APP_ID', APP_ID)
 appstream_file = i18n.merge_file(
   input: configure_file(
     input: 'com.github.Aurnytoraink.Sleepcover.metainfo.xml.in.in',
     output: '@BASENAME@',
     configuration: appstream_conf
   ),
-  output: '@0@.metainfo.xml'.format(application_id),
-  po_dir: '../po',
+  output: '@0@.metainfo.xml'.format(APP_ID),
+  po_dir: 'meson.project_source_root()' / 'po',
   install: true,
-  install_dir: join_paths(get_option('datadir'), 'metainfo')
+  install_dir: appdatadir
 )
 
 appstream_util = find_program('appstream-util', required: false)
@@ -56,13 +57,13 @@ if appstream_util.found()
 endif
 
 gsettings_conf = configuration_data()
-gsettings_conf.set('application_id', application_id)
+gsettings_conf.set('application_id', APP_ID)
 configure_file(
   input: 'com.github.Aurnytoraink.Sleepcover.gschema.xml.in',
-  output: '@0@.gschema.xml'.format(application_id),
+  output: '@0@.gschema.xml'.format(APP_ID),
   configuration: gsettings_conf,
   install: true,
-  install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
+  install_dir: schemasdir
 )
 
 
@@ -72,3 +73,5 @@ if compile_schemas.found()
     args: ['--strict', '--dry-run', meson.current_source_dir()]
   )
 endif
+
+install_subdir('icons/hicolor', install_dir: iconsdir)

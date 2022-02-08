@@ -1,9 +1,7 @@
-option(
-        'profile',
-        type: 'combo',
-        choices: [
-                'default',
-                'development'
-        ],
-        value: 'default'
+option (
+  'devel',
+  type: 'boolean',
+  value: 'false',
+  description: 'Build the app with the development style'
 )
+
