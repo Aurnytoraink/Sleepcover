@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="DayRecordRow" parent="AdwActionRow">
+    <property name="title" translatable="yes">01/01/1970</property>
+    <property name="subtitle" translatable="yes">0 sounds – 00:00:00</property>
+    <property name="activatable">True</property>
+    <child>
+      <object class="GtkImage">
+        <property name="icon_name">go-next-symbolic</property>
+      </object>
+    </child>
+  </template>
+</interface>
+
